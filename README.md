@@ -4,9 +4,9 @@
 
 <br>
 
-## 👥 Team Information (4rsenal)
-- [cite_start]**팀장:** 신재성 [cite: 4]
-- [cite_start]**팀원:** 정태환, 전병욱, 권승빈 [cite: 5]
+## 👥 Team 4rsenal
+- **팀장:** 신재성 
+- **팀원:** 정태환, 전병욱, 권승빈
 
 <br>
 
@@ -20,17 +20,17 @@
 ## 📌 주요 수행 내용 (Key Features)
 
 ### 1️⃣ 서버 환경 세팅 및 네트워크 수동 설정
-* [cite_start]초기 가상머신(server1, server2, server3) 인프라 구성 [cite: 71, 119, 160]
-* [cite_start]`ifconfig` 및 터미널 텍스트 인터페이스를 이용한 고정 IPv4 주소 수동 변경 및 네트워크 환경 최적화 [cite: 72, 74, 120, 161]
-* [cite_start]외부 통신 안정성을 위한 전용 DNS 서버 매핑 [cite: 224, 238]
+* 초기 가상머신(server1, server2, server3) 인프라 구성 [cite: 71, 119, 160]
+* `ifconfig` 및 터미널 텍스트 인터페이스를 이용한 고정 IPv4 주소 수동 변경 및 네트워크 환경 최적화 [cite: 72, 74, 120, 161]
+* 외부 통신 안정성을 위한 전용 DNS 서버 매핑 [cite: 224, 238]
 
 ### 2️⃣ Linux 디스크 및 사용자 관리 (LVM & Quota)
-* [cite_start]**LVM(Logical Volume Manager) 구성:** [cite: 515]
-  * [cite_start]`/dev/sdb`, `/dev/sdc`, `/dev/sdd` 물리 디스크를 추가하여 하나의 대용량 가상 디스크 그룹(`DATA`)으로 통합 [cite: 338, 518, 522]
-  * [cite_start]이를 `VIDEO(40GB)`, `AUDIO(60GB)` 논리 볼륨으로 효율적으로 분할 및 자동 마운트(`fstab`) 처리 [cite: 540, 542, 554, 619]
-* [cite_start]**디스크 쿼터(Quota) 제한 정책 수립:** [cite: 690]
-  * [cite_start]전용 스토리지(`/dev/sde1`) 파티션을 `/idol` 디렉토리에 마운트 후 [cite: 811, 856, 857, 862]
-  * [cite_start]`aespa`, `ive`, `newjeans` 유저를 생성하여 **Soft Limit(700MB 경고) 및 Hard Limit(1GB 저장 차단)** 일괄 쿼터 정책 적용 [cite: 916, 1044, 1045, 1050]
+* **LVM(Logical Volume Manager) 구성:**
+  * `/dev/sdb`, `/dev/sdc`, `/dev/sdd` 물리 디스크를 추가하여 하나의 대용량 가상 디스크 그룹(`DATA`)으로 통합 
+  * 이를 `VIDEO(40GB)`, `AUDIO(60GB)` 논리 볼륨으로 효율적으로 분할 및 자동 마운트(`fstab`) 처리 
+ **디스크 쿼터(Quota) 제한 정책 수립:** 
+  전용 스토리지(`/dev/sde1`) 파티션을 `/idol` 디렉토리에 마운트 후 
+  `aespa`, `ive`, `newjeans` 유저를 생성하여 **Soft Limit(700MB 경고) 및 Hard Limit(1GB 저장 차단)** 일괄 쿼터 정책 적용 
 
 ### 3️⃣ 엔터프라이즈 핵심 6대 서버 구축 및 연동
 프로젝트의 최종 목적을 위해 다양한 네트워크 및 시스템 서비스를 패키지 설치부터 방화벽 설정까지 올인원으로 구축했습니다.
