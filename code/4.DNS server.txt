@@ -1,0 +1,37 @@
+# 패키지 설치
+dnf install bind bind-chroot -y
+
+# main 설정 파일 수정 (외부 접속 허용 및 마스터 도메인 선언)
+cat << 'EOF' > /etc/named.conf
+options {
+    listen-on port 53 { any; };
+    directory       "/var/named";
+    allow-query     { any; };
+};
+
+zone "4rsenal.msft" IN {
+    type master;
+    file "4rsenal.msft.zone";
+    allow-update { none; };
+};
+EOF
+
+# 마스터 존 파일(CNAME 매핑 포함) 생성
+cat << 'EOF' > /var/named/4rsenal.msft.zone
+$TTL 3H
+@       IN SOA  @ root.4rsenal.msft. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+        IN NS   @
+        IN A    192.168.111.100
+www     IN CNAME @
+mail    IN A    192.168.111.100
+EOF
+
+# 서비스 가동 및 방화벽 포트(53) 오픈
+systemctl enable --now named
+firewall-cmd --permanent --add-service=dns
+firewall-cmd --reload

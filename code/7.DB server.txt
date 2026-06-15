@@ -1,0 +1,17 @@
+# MariaDB 설치 및 초기 보안 설정
+dnf install mariadb-server -y
+systemctl enable --now mariadb
+
+# 원격 접속 설정 및 패스워드 정책을 위한 대화식 보안 스크립트 실행
+# mysql_secure_installation
+
+# 외부 원격 접속 권한 및 데이터베이스 생성 예시 (CLI 내부 진입 후)
+mysql -u root -p -e "
+CREATE DATABASE appdb;
+CREATE USER 'admin'@'%' IDENTIFIED BY 'Password123!';
+GRANT ALL PRIVILEGES ON appdb.* TO 'admin'@'%';
+FLUSH PRIVILEGES;"
+
+# 방화벽(3306 포트) 오픈
+firewall-cmd --permanent --add-service=mysql
+firewall-cmd --reload

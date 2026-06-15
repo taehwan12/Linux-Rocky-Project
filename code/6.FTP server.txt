@@ -1,0 +1,10 @@
+# vsftpd 설치
+dnf install vsftpd -y
+
+# 익명 로그인(Anonymous) 활성화 설정 제어
+sed -i 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd/vsftpd.conf
+
+# 가동 및 방화벽 허용
+systemctl enable --now vsftpd
+firewall-cmd --permanent --add-service=ftp
+firewall-cmd --reload

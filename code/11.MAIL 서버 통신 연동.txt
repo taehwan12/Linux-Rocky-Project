@@ -1,0 +1,17 @@
+# SMTP 및 POP3/IMAP 패키지 설치
+dnf install sendmail dovecot -y
+
+# sendmail 외부 도메인 수신 대기 주소 변경 (local을 전역으로 허용 수정)
+sed -i "s/Addr=127.0.0.1/Addr=0.0.0.0/g" /etc/mail/sendmail.cf
+
+# dovecot 프로토콜 활성화 설정
+sed -i 's/#protocols = imap pop3 lmtp/protocols = imap pop3/g' /etc/dovecot/dovecot.conf
+sed -i 's/#disable_plaintext_auth = yes/disable_plaintext_auth = no/g' /etc/dovecot/conf.d/10-auth.conf
+sed -i 's/ssl = required/ssl = no/g' /etc/dovecot/conf.d/10-ssl.conf
+
+# 두 서비스 최종 연동 시작 및 방화벽 다중 포트 개방
+systemctl enable --now sendmail dovecot
+firewall-cmd --permanent --add-service=smtp
+firewall-cmd --permanent --add-service=pop3
+firewall-cmd --permanent --add-service=imap
+firewall-cmd --reload

@@ -1,0 +1,23 @@
+# SAMBA 설치
+dnf install samba samba-client -y
+
+# 설정 파일 구성 (윈도우-리눅스 이기종 파일 공유 설정)
+cat << 'EOF' >> /etc/samba/smb.conf
+[4rsenal-share]
+   comment = Enterprise Shared Storage
+   path = /share/samba_data
+   writable = yes
+   browseable = yes
+   guest ok = no
+EOF
+
+# 저장소 생성 및 SELinux 보안 문맥(Context) 적용 보안 제어
+mkdir -p /share/samba_data
+chmod 777 /share/samba_data
+semanage fcontext -a -t samba_share_t "/share/samba_data(/.*)?"
+restorecon -R -v /share/samba_data
+
+# SAMBA 서비스 가동 및 방화벽 개방
+systemctl enable --now smb nmb
+firewall-cmd --permanent --add-service=samba
+firewall-cmd --reload

@@ -1,0 +1,15 @@
+# 사용자 생성 및 그룹 지정
+useradd -G quota-group aespa
+useradd -G quota-group ive
+useradd -G quota-group newjeans
+
+# 쿼터 전용 마운트 옵션 적용 (XFS 기준, /etc/fstab에 uquota 옵션 추가 후 재마운트)
+# mount -o remount,uquota /media/user_storage
+
+# 사용자별 Soft Limit(700MB), Hard Limit(1GB) 일괄 적용
+xfs_quota -x -c 'limit bsoft=700m bhard=1g aespa' /media/user_storage
+xfs_quota -x -c 'limit bsoft=700m bhard=1g ive' /media/user_storage
+xfs_quota -x -c 'limit bsoft=700m bhard=1g newjeans' /media/user_storage
+
+# 쿼터 설정 상태 확인 및 검증 보고서 출력
+xfs_quota -x -c 'report -h' /media/user_storage

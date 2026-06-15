@@ -1,0 +1,24 @@
+# 1. 물리 볼륨(PV) 생성 (추가한 디스크 /dev/sdb, /dev/sdc 가정)
+pvcreate /dev/sdb /dev/sdc
+
+# 2. 볼륨 그룹(VG) 'DATA'로 통합
+vgcreate DATA /dev/sdb /dev/sdc
+
+# 3. 논리 볼륨(LV) 효율적 분할 (VIDEO: 40GB, AUDIO: 60GB)
+lvcreate -L 40G -n VIDEO DATA
+lvcreate -L 60G -n AUDIO DATA
+
+# 4. 파일 시스템 포맷 (XFS)
+mkfs.xfs /dev/DATA/VIDEO
+mkfs.xfs /dev/DATA/AUDIO
+
+# 5. 마운트 포인트 디렉토리 생성 및 fstab 등록
+mkdir -p /media/video /media/audio
+
+cat << 'EOF' >> /etc/fstab
+/dev/DATA/VIDEO /media/video xfs defaults 0 0
+/dev/DATA/AUDIO /media/audio xfs defaults 0 0
+EOF
+
+mount -a
+df -h

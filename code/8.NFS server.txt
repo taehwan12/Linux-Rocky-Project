@@ -1,0 +1,17 @@
+# NFS 유틸리티 설치
+dnf install nfs-utils -y
+
+# 공유 디렉토리 권한 설정 및 익스포트 정책 수립
+mkdir -y /share/nfs_data
+chmod 707 /share/nfs_data
+
+# 특정 대역 서버간 리소스 공유 선언
+echo "/share/nfs_data 192.168.111.0/24(rw,sync,no_root_squash)" >> /etc/exports
+
+# nfs 서비스 적용 및 검증
+systemctl enable --now nfs-server
+exportfs -v
+
+# 방화벽 오픈
+firewall-cmd --permanent --add-service=nfs
+firewall-cmd --reload
