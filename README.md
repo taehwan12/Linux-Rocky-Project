@@ -2,6 +2,12 @@
 
 > **Rocky Linux 환경에서 볼륨 관리, 디스크 쿼터 정책 수립 및 다양한 엔터프라이즈 필수 네트워크 서버들을 직접 구축하고 검증한 팀 프로젝트입니다.**
 
+
+---
+
+## 📄 프로젝트 보고서 원본
+* [Linux Rocky Project 보고서 (PDF) 보러가기](https://github.com/taehwan12/Linux-Rocky-Project/blob/main/linux%20rocky%20project.pdf)
+
 <br>
 
 ## 👥 Team Information (4rsenal)
